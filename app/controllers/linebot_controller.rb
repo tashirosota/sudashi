@@ -33,13 +33,14 @@ class LinebotController < ApplicationController
           e_msg = event.message['text']
 
           if '写真' =~ e_msg
+            pp 通ってる
             message = {
                 type: 'image',
                 originalContentUrl: "public/user_images/#{@images.sample}",
                 previewImageUrl: "public/user_images/#{@images.sample}",
             }
-            client.reply_message(event['replyToken'], message)
-
+            pp message
+            return client.reply_message(event['replyToken'], message)
           end
           boolean = ReplayMsg.where(react_msg: e_msg)
           if !!boolean.blank?
