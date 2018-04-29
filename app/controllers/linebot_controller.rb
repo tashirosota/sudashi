@@ -1,5 +1,6 @@
 class LinebotController < ApplicationController
   require 'line/bot' # gem 'line-bot-api'
+  require 'mini_magick'
 
   # callbackアクションのCSRFトークン認証を無効
   protect_from_forgery :except => [:callback]
@@ -32,16 +33,16 @@ class LinebotController < ApplicationController
         when Line::Bot::Event::MessageType::Text
           e_msg = event.message['text']
 
-          if '写真' =~ e_msg
-            pp set_images
-            message = {
-                type: 'image',
-                originalContentUrl: "public/user_images/#{@images.sample}",
-                previewImageUrl: "public/user_images/#{@images.sample}",
-            }
-            pp message
-            return client.reply_message(event['replyToken'], message)
-          end
+          # # if /写真/ =~ e_msg
+          # #   pp set_images.sample
+          # #   message = {
+          # #       type: 'image',
+          # #       originalContentUrl: "public/sudachi/#{@images.sample}",
+          # #       previewImageUrl: "public/sudachi/#{@images.sample}",
+          # #   }
+          # #   pp message
+          # #   return client.reply_message(event['replyToken'], message)
+          # end
           boolean = ReplayMsg.where(react_msg: e_msg)
           if !!boolean.blank?
             msgs = ReplayMsg.all
