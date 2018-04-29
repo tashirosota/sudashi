@@ -7,9 +7,9 @@ class LinebotController < ApplicationController
 
   def client
     @client ||= Line::Bot::Client.new {|config|
-      # ENV["LINE_CHANNEL_SECRET"] = "77633b13c37cd1e9b3484ca39fa9b54c"
+      ENV["LINE_CHANNEL_SECRET"] = "77633b13c37cd1e9b3484ca39fa9b54c"
       config.channel_secret = ENV["LINE_CHANNEL_SECRET"]
-      # ENV["LINE_CHANNEL_TOKEN"] = "hqxe2FJXoS5KHa8sawUMB1tF0KPYKpUYpsUOCuaq1os8IJQ6hRDk8PMkCDw/j++qtJcKXx04cxMVkbK3pyfVF6y9TiUbMESCE3ElldOKAAWYM4BrtfUz4w8zyKjRVhWO5wjoD8XkXfLAQe5hP20RmgdB04t89/1O/w1cDnyilFU="
+      ENV["LINE_CHANNEL_TOKEN"] = "hqxe2FJXoS5KHa8sawUMB1tF0KPYKpUYpsUOCuaq1os8IJQ6hRDk8PMkCDw/j++qtJcKXx04cxMVkbK3pyfVF6y9TiUbMESCE3ElldOKAAWYM4BrtfUz4w8zyKjRVhWO5wjoD8XkXfLAQe5hP20RmgdB04t89/1O/w1cDnyilFU="
       config.channel_token = ENV["LINE_CHANNEL_TOKEN"]
     }
   end
@@ -32,7 +32,6 @@ class LinebotController < ApplicationController
         case event.type
         when Line::Bot::Event::MessageType::Text
           e_msg = event.message['text']
-
           # # if /写真/ =~ e_msg
           # #   pp set_images.sample
           # #   message = {
@@ -54,7 +53,7 @@ class LinebotController < ApplicationController
                     type: 'text',
                     text: msg_array.sample
                 }
-                client.reply_message(event['replyToken'], message)
+                return client.reply_message(event['replyToken'], message)
               end
             end
           else
@@ -63,8 +62,7 @@ class LinebotController < ApplicationController
                 type: 'text',
                 text: msg_array.sample
             }
-            client.reply_message(event['replyToken'], message)
-
+            return client.reply_message(event['replyToken'], message)
           end
         end
       end
