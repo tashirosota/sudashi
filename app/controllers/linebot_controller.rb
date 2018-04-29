@@ -33,7 +33,7 @@ class LinebotController < ApplicationController
           e_msg = event.message['text']
 
           if '写真' =~ e_msg
-            pp 通ってる
+            pp set_images
             message = {
                 type: 'image',
                 originalContentUrl: "public/user_images/#{@images.sample}",
