@@ -1,15 +1,14 @@
 class LinebotController < ApplicationController
   require 'line/bot' # gem 'line-bot-api'
-  require 'mini_magick'
 
   # callbackアクションのCSRFトークン認証を無効
   protect_from_forgery :except => [:callback]
 
   def client
     @client ||= Line::Bot::Client.new {|config|
-      ENV["LINE_CHANNEL_SECRET"] = "77633b13c37cd1e9b3484ca39fa9b54c"
+      # ENV["LINE_CHANNEL_SECRET"] = "77633b13c37cd1e9b3484ca39fa9b54c"
       config.channel_secret = ENV["LINE_CHANNEL_SECRET"]
-      ENV["LINE_CHANNEL_TOKEN"] = "hqxe2FJXoS5KHa8sawUMB1tF0KPYKpUYpsUOCuaq1os8IJQ6hRDk8PMkCDw/j++qtJcKXx04cxMVkbK3pyfVF6y9TiUbMESCE3ElldOKAAWYM4BrtfUz4w8zyKjRVhWO5wjoD8XkXfLAQe5hP20RmgdB04t89/1O/w1cDnyilFU="
+      # ENV["LINE_CHANNEL_TOKEN"] = "hqxe2FJXoS5KHa8sawUMB1tF0KPYKpUYpsUOCuaq1os8IJQ6hRDk8PMkCDw/j++qtJcKXx04cxMVkbK3pyfVF6y9TiUbMESCE3ElldOKAAWYM4BrtfUz4w8zyKjRVhWO5wjoD8XkXfLAQe5hP20RmgdB04t89/1O/w1cDnyilFU="
       config.channel_token = ENV["LINE_CHANNEL_TOKEN"]
     }
   end
@@ -32,18 +31,18 @@ class LinebotController < ApplicationController
         case event.type
         when Line::Bot::Event::MessageType::Text
           e_msg = event.message['text']
-          # # if /写真/ =~ e_msg
-          # #   pp set_images.sample
-          # #   message = {
-          # #       type: 'image',
-          # #       originalContentUrl: "public/sudachi/#{@images.sample}",
-          # #       previewImageUrl: "public/sudachi/#{@images.sample}",
-          # #   }
-          # #   pp message
-          # #   return client.reply_message(event['replyToken'], message)
+          # if /写真/ =~ e_msg
+          #   pp set_images.sample
+          #   message = {
+          #       type: 'image',
+          #       originalContentUrl: "public/sudachi/#{@images.sample}",
+          #       previewImageUrl: "public/sudachi/#{@images.sample}",
+          #   }
+          #   pp message
+          #   return client.reply_message(event['replyToken'], message)
           # end
-          boolean = ReplayMsg.where(react_msg: e_msg)
-          if !!boolean.blank?
+          replay_msg_blank = ReplayMsg.where(react_msg: e_msg)
+          if !!replay_msg_blank.blank?
             msgs = ReplayMsg.all
             msgs.each do |msg|
               r_msg = Regexp.new(msg.react_including_msg)
@@ -57,7 +56,7 @@ class LinebotController < ApplicationController
               end
             end
           else
-            msg_array = boolean.first.replay.split(' ')
+            msg_array = replay_msg_blank.first.replay.split(' ')
             message = {
                 type: 'text',
                 text: msg_array.sample
