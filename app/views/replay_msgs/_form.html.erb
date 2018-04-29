@@ -11,12 +11,17 @@
     </div>
   <% end %>
   反応する言葉
+  <br>
   <%= form.text_field :react_msg%>
   <br>
   反応する言葉(含む)
+  <br>
   <%= form.text_field :react_including_msg%>
   <br>
-  返す言葉
+  返す言葉 ※半角スペースを空けていくつか登録するとその中からランダムで返すようになります。
+  例(にゃん にゃんこ　わんわん)
+  <br>
+  <br>
   <%= form.text_field :replay%>
   <br>
   <div class="actions">
