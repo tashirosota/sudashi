@@ -1,0 +1,2 @@
+class ReplayMsg < ApplicationRecord
+end

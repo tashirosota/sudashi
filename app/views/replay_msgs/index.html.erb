@@ -1,0 +1,30 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Replay Msgs</h1>
+<%= link_to 'New Replay Msg', new_replay_msg_path %>
+<table>
+  <thead>
+  <tr>
+    <th colspan="3"></th>
+  </tr>
+  </thead>
+    <tr>
+      <th>反応する言葉</th>
+      <th>反応する言葉(含む)</th>
+      <th>返す言葉</th>
+      <th>編集</th>
+      <th>削除</th>
+
+    </tr>
+  <tbody>
+  <% @replay_msgs.each do |replay_msg| %>
+    <tr>
+      <td><%=replay_msg.react_msg %></td>
+      <td><%=replay_msg.react_including_msg %></td>
+      <td><%=replay_msg.replay %></td>
+      <td><%= link_to 'Edit', edit_replay_msg_path(replay_msg) %></td>
+      <td><%= link_to 'Destroy', replay_msg, method: :delete, data: {confirm: 'Are you sure?'} %></td>
+    </tr>
+  <% end %>
+</table>
+

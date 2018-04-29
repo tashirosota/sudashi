@@ -1,0 +1,25 @@
+<%= form_with(model: replay_msg, local: true) do |form| %>
+  <% if replay_msg.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(replay_msg.errors.count, "error") %> prohibited this replay_msg from being saved:</h2>
+
+      <ul>
+      <% replay_msg.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+  反応する言葉
+  <%= form.text_field :react_including_msg%>
+  <br>
+  反応する言葉(含む)
+  <%= form.text_field :react_msg%>
+  <br>
+  返す言葉
+  <%= form.text_field :replay%>
+  <br>
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>
