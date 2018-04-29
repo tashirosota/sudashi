@@ -38,20 +38,20 @@ class LinebotController < ApplicationController
             msgs = ReplayMsg.all
             msgs.each do |msg|
               r_msg = Regexp.new(msg.react_including_msg)
-              pp 'ここ'
-              pp r_msg
               if r_msg =~ e_msg
+                msg_array=%W(#{msg.replay})
                 message = {
                     type: 'text',
-                    text: msg.replay
+                    text: msg_array.sample
                 }
                 client.reply_message(event['replyToken'], message)
               end
             end
           else
+            msg_array=%W(#{boolean.first.replay})
             message = {
                 type: 'text',
-                text: ReplayMsg.where(react_msg: e_msg).first.replay
+                text: msg_array.sample
             }
             client.reply_message(event['replyToken'], message)
 
