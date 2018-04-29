@@ -39,7 +39,7 @@ class LinebotController < ApplicationController
             msgs.each do |msg|
               r_msg = Regexp.new(msg.react_including_msg)
               if r_msg =~ e_msg
-                msg_array=%W(#{msg.replay})
+                msg_array = msg.replay.split(' ')
                 message = {
                     type: 'text',
                     text: msg_array.sample
@@ -48,7 +48,7 @@ class LinebotController < ApplicationController
               end
             end
           else
-            msg_array=%W(#{boolean.first.replay})
+            msg_array = boolean.first.replay.split(' ')
             message = {
                 type: 'text',
                 text: msg_array.sample
