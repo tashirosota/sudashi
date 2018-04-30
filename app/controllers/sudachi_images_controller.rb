@@ -26,7 +26,7 @@ class SudachiImagesController < ApplicationController
 
     respond_to do |format|
       if @sudachi_image.save
-        format.html {redirect_to sudachi_images_path, notice: 'Sudachi image was successfully created.'}
+        format.html {redirect_to sudachi_images_path, notice: '写真が一つ増えたにゃ！！'}
         format.json {render :index, status: :created, location: @sudachi_image}
       else
         format.html {render :new}
@@ -41,7 +41,7 @@ class SudachiImagesController < ApplicationController
   def destroy
     @sudachi_image.destroy
     respond_to do |format|
-      format.html {redirect_to sudachi_images_url, notice: 'Sudachi image was successfully destroyed.'}
+      format.html {redirect_to sudachi_images_url, notice: '思い出をまた一つ忘却してしまったヌーン。。。'}
       format.json {head :no_content}
     end
   end

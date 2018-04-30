@@ -23,7 +23,7 @@ class ReplayMsgsController < ApplicationController
 
     respond_to do |format|
       if @replay_msg.save
-        format.html { redirect_to replay_msgs_path, notice: 'Replay msg was successfully created.' }
+        format.html { redirect_to replay_msgs_path, notice: '新しいお返事が登録されたにゃ！' }
         format.json { render :index, status: :created, location: @replay_msg }
       else
         format.html { render :index }
@@ -37,7 +37,7 @@ class ReplayMsgsController < ApplicationController
   def update
     respond_to do |format|
       if @replay_msg.update(replay_msg_params)
-        format.html { redirect_to  replay_msgs_path, notice: 'Replay msg was successfully updated.' }
+        format.html { redirect_to  replay_msgs_path, notice: 'お返事が編集されたにゃ！' }
         format.json { render :index, status: :ok, location: @replay_msg }
       else
         format.html { render :edit }
@@ -51,7 +51,7 @@ class ReplayMsgsController < ApplicationController
   def destroy
     @replay_msg.destroy
     respond_to do |format|
-      format.html { redirect_to replay_msgs_url, notice: 'Replay msg was successfully destroyed.' }
+      format.html { redirect_to replay_msgs_url, notice: 'お返事を一つ忘れたヌーン。。。' }
       format.json { head :no_content }
     end
   end

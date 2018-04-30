@@ -5,9 +5,9 @@ class LinebotController < ApplicationController
 
   def client
     @client ||= Line::Bot::Client.new {|config|
-      ENV['LINE_CHANNEL_SECRET']="77633b13c37cd1e9b3484ca39fa9b54c"
+      ENV['LINE_CHANNEL_SECRET'] = "77633b13c37cd1e9b3484ca39fa9b54c"
       config.channel_secret = ENV["LINE_CHANNEL_SECRET"]
-      ENV['LINE_CHANNEL_SECRET']="hqxe2FJXoS5KHa8sawUMB1tF0KPYKpUYpsUOCuaq1os8IJQ6hRDk8PMkCDw/j++qtJcKXx04cxMVkbK3pyfVF6y9TiUbMESCE3ElldOKAAWYM4BrtfUz4w8zyKjRVhWO5wjoD8XkXfLAQe5hP20RmgdB04t89/1O/w1cDnyilFU="
+      ENV['LINE_CHANNEL_SECRET'] = "hqxe2FJXoS5KHa8sawUMB1tF0KPYKpUYpsUOCuaq1os8IJQ6hRDk8PMkCDw/j++qtJcKXx04cxMVkbK3pyfVF6y9TiUbMESCE3ElldOKAAWYM4BrtfUz4w8zyKjRVhWO5wjoD8XkXfLAQe5hP20RmgdB04t89/1O/w1cDnyilFU="
       config.channel_token = ENV["LINE_CHANNEL_TOKEN"]
     }
   end
@@ -48,14 +48,17 @@ class LinebotController < ApplicationController
             pp '完全一致してなかった時'
             msgs = ReplayMsg.all
             msgs.each do |msg|
-              r_msg = Regexp.new(msg.react_including_msg)
-              if r_msg =~ e_msg
-                msg_array = msg.replay.split(' ')
-                message = {
-                    type: 'text',
-                    text: msg_array.sample
-                }
-                return client.reply_message(event['replyToken'], message)
+              r_msg_array = msg.react_including_msg.split(' ')
+              r_msg_array.each do |r_msg_a|
+                r_msg = Regexp.new(r_msg_a)
+                if r_msg =~ e_msg
+                  msg_array = msg.replay.split(' ')
+                  message = {
+                      type: 'text',
+                      text: msg_array.sample
+                  }
+                  return client.reply_message(event['replyToken'], message)
+                end
               end
             end
           else
