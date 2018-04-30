@@ -10,11 +10,11 @@
       </ul>
     </div>
   <% end %>
-  反応する言葉
+  反応する言葉(1語)
   <br>
   <%= form.text_field :react_msg%>
   <br>
-  反応する言葉(含む)
+  反応する言葉(含む※1語)
   <br>
   <%= form.text_field :react_including_msg%>
   <br>
@@ -25,6 +25,6 @@
   <%= form.text_field :replay%>
   <br>
   <div class="actions">
-    <%= form.submit %>
+    <%= form.submit('登録する') %>
   </div>
 <% end %>

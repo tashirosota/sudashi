@@ -1,0 +1,19 @@
+<p id="notice"><%= notice %></p>
+
+<h1>すだち写真集</h1>
+<%= link_to '新しく登録する', new_sudachi_image_path %>
+<%= link_to 'すだちのお返事', replay_msgs_path %>
+<table>
+  <tbody>
+    <% @sudachi_images.each do |sudachi_image| %>
+      <tr>
+        <td><%= image_tag sudachi_image.image.thumb.url%></td>
+        <td><%= link_to 'Destroy', sudachi_image, method: :delete, data: { confirm: '消しちゃうにゃん？' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+
