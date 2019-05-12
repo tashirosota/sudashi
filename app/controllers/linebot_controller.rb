@@ -33,7 +33,6 @@ class LinebotController < ApplicationController
 
           if /写真/ =~ e_msg
             # 写真ほしい時の処理
-            pp 'こ写真ほしい時'
             set_images
             message = {
                 type: 'image',
@@ -45,7 +44,6 @@ class LinebotController < ApplicationController
           replay_msg_blank = ReplayMsg.where(react_msg: e_msg)
           if !!replay_msg_blank.blank?
             # 完全一致してなかった時
-            pp '完全一致してなかった時'
             msgs = ReplayMsg.all
             msgs.each do |msg|
               r_msg_array = msg.react_including_msg.split(' ')
@@ -63,7 +61,6 @@ class LinebotController < ApplicationController
             end
           else
             # 完全一致していた時
-            pp '完全一致していた時'
             msg_array = replay_msg_blank.first.replay.split(' ')
             message = {
                 type: 'text',
